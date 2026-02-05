@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coach Goudie Brand Kit</title>
+    <style>
+        /* SOCCERATES AESTHETIC */
+        body { background: #111; font-family: 'Courier New', monospace; padding: 50px; text-align: center; }
+        h2 { color: #fff; margin-top: 60px; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; opacity: 0.5; margin-bottom: 20px; }
+        
+        /* CONTAINER FOR CAPTURE */
+        .asset-container { 
+            background: #000; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: 1px dashed #333; /* CROP GUIDES - DO NOT INCLUDE IN SCREENSHOT */
+        }
+
+        /* 1. PROFILE PICTURE (Square) */
+        #avatar { width: 400px; height: 400px; }
+        
+        /* 2. X / TWITTER HEADER (Wide) */
+        #header-x { width: 1500px; height: 500px; flex-direction: column; gap: 20px; }
+        
+        /* SVG STYLES */
+        svg { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+        .filled { fill: #fff; stroke: none; }
+        
+        /* TYPOGRAPHY ASSETS */
+        .brand-name { color: #fff; font-size: 5rem; letter-spacing: -3px; font-weight: bold; line-height: 1; }
+        .subtitle { color: #fff; font-size: 1.5rem; letter-spacing: 8px; opacity: 0.8; text-transform: uppercase; }
+        .separator { color: #fff; font-size: 3rem; opacity: 0.4; }
+
+    </style>
+</head>
+<body>
+
+    <h2>1. Profile Picture (Avatar)</h2>
+    <div id="avatar" class="asset-container">
+        <svg width="220" height="220" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" />
+            <polygon points="50,15 85,50 50,85 15,50" />
+            <circle cx="50" cy="50" r="6" class="filled" />
+        </svg>
+    </div>
+
+    <h2>2. Profile Header Image</h2>
+    <div id="header-x" class="asset-container">
+        <div class="brand-name">COACH GOUDIE</div>
+        <div class="separator">⬡</div>
+        <div class="subtitle">TACTICAL THEORY</div>
+    </div>
+
+    <h2>3. Alternate Icon (No Circle)</h2>
+    <div id="avatar" class="asset-container">
+        <svg width="200" height="200" viewBox="0 0 100 100">
+            <polygon points="50,10 90,50 50,90 10,50" stroke-width="4" />
+            <circle cx="50" cy="50" r="7" class="filled" />
+        </svg>
+    </div>
+
+</body>
+</html>
