@@ -3,40 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Soccerates Engine v1.6</title>
+    <title>Soccerates Engine v1.7</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
         /* DESIGN SYSTEM */
-        :root { --bg: #111; --fg: #fff; --accent: #333; --green: #2ecc71; --red: #e74c3c; --font: 'Courier New', Courier, monospace; }
+        :root { --bg: #000; --fg: #fff; --accent: #444; --green: #2ecc71; --font: 'Courier New', Courier, monospace; }
         body { background-color: var(--bg); color: var(--fg); font-family: var(--font); margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 450px; }
+        .container { width: 100%; max-width: 450px; position: relative; }
         
         /* HEADER */
         header { border-bottom: 2px solid var(--fg); padding-bottom: 10px; margin-bottom: 20px; text-align: center; }
         h1 { font-size: 1.5rem; letter-spacing: -1px; margin: 0; }
+        .subtitle { font-size: 0.7rem; opacity: 0.7; margin-top: 5px; }
 
         /* INPUTS */
-        .card { border: 1px solid var(--accent); padding: 15px; margin-bottom: 15px; background: #000; }
-        .card-header { font-weight: bold; border-bottom: 1px solid var(--accent); padding-bottom: 5px; margin-bottom: 10px; display: flex; justify-content: space-between; }
-        label { display: block; font-size: 0.7rem; margin-bottom: 5px; opacity: 0.8; margin-top: 10px; }
-        input, select { background: #222; border: 1px solid #444; color: #fff; padding: 8px; width: 100%; font-family: var(--font); box-sizing: border-box; font-size: 0.9rem; }
-        .row { display: flex; gap: 10px; }
+        .card { border: 1px solid var(--accent); padding: 15px; margin-bottom: 15px; background: #111; }
+        .card-header { font-weight: bold; border-bottom: 1px solid var(--accent); padding-bottom: 5px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        
+        label { display: block; font-size: 0.65rem; margin-bottom: 5px; opacity: 0.8; margin-top: 10px; text-transform: uppercase; }
+        input, select { background: #222; border: 1px solid #444; color: #fff; padding: 8px; width: 100%; font-family: var(--font); box-sizing: border-box; font-size: 0.9rem; border-radius: 0; }
+        
+        .row { display: flex; gap: 10px; align-items: flex-end; }
         .col { flex: 1; }
 
-        button { background: var(--fg); color: var(--bg); border: none; width: 100%; padding: 15px; font-family: var(--font); font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
-
-        /* ANALYSIS BOX */
+        /* BUTTONS */
+        .btn-main { background: var(--fg); color: var(--bg); border: none; width: 100%; padding: 15px; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
+        .btn-calc { background: var(--accent); color: var(--fg); border: none; padding: 8px 12px; font-size: 0.7rem; cursor: pointer; height: 35px; }
+        
+        /* RESULTS */
         #result-area { display: none; border: 2px solid var(--fg); padding: 20px; margin-top: 20px; text-align: center; }
         .score-board { font-size: 3rem; font-weight: bold; margin: 10px 0; }
         .analysis-box { text-align: left; margin-top: 15px; border-top: 1px solid var(--accent); padding-top: 15px; }
-        .analysis-title { font-weight: bold; font-size: 0.8rem; text-decoration: underline; margin-bottom: 10px; }
         .analysis-item { font-size: 0.75rem; margin-bottom: 8px; line-height: 1.4; }
         .highlight { color: var(--green); font-weight: bold; }
         
-        .loading { animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
+        /* CALCULATOR MODAL */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; padding: 20px; box-sizing: border-box; flex-direction: column; justify-content: center; }
+        .modal-content { border: 1px solid var(--fg); padding: 20px; background: #000; max-width: 400px; margin: 0 auto; width: 100%; }
+        .modal h2 { margin-top: 0; border-bottom: 1px solid var(--accent); padding-bottom: 10px; font-size: 1.2rem; }
+        .close-btn { background: var(--red); margin-top: 10px; background: #333; }
+
     </style>
 </head>
 <body>
@@ -44,15 +52,21 @@
 <div class="container">
     <header>
         <h1>SOCCERATES<br>ENGINE</h1>
+        <div class="subtitle">v1.7 // INDEX CALCULATOR</div>
     </header>
 
     <div class="card">
         <div class="card-header"><span>US (BENET)</span> <i class="fas fa-shield-alt"></i></div>
         <div class="row">
-            <div class="col">
-                <label>POWER (0-100)</label>
-                <input type="number" id="pwrA" value="84">
+            <div class="col" style="flex: 2;">
+                <label>POWER RATING</label>
+                <input type="number" id="pwrA" value="84" readonly>
             </div>
+            <div class="col" style="flex: 1;">
+                <button class="btn-calc" onclick="openCalc('A')">CALC</button>
+            </div>
+        </div>
+        <div class="row">
             <div class="col">
                 <label>RETURNING STARTERS</label>
                 <select id="expA">
@@ -65,13 +79,18 @@
     </div>
 
     <div class="card">
-        <div class="card-header"><span>THEM (NORTH)</span> <i class="fas fa-bolt"></i></div>
+        <div class="card-header"><span>THEM (OPPONENT)</span> <i class="fas fa-bolt"></i></div>
         <div class="row">
-            <div class="col">
-                <label>POWER (0-100)</label>
-                <input type="number" id="pwrB" value="96">
+            <div class="col" style="flex: 2;">
+                <label>POWER RATING</label>
+                <input type="number" id="pwrB" value="96" readonly>
             </div>
-            <div class="col">
+            <div class="col" style="flex: 1;">
+                <button class="btn-calc" onclick="openCalc('B')">CALC</button>
+            </div>
+        </div>
+        <div class="row">
+             <div class="col">
                 <label>RETURNING STARTERS</label>
                 <select id="expB">
                     <option value="1" selected>LOW (0-3)</option>
@@ -87,14 +106,14 @@
         <select id="venue">
             <option value="0">NEUTRAL SITE</option>
             <option value="1">HOME (BENET)</option>
-            <option value="-1" selected>AWAY (NORTH)</option>
+            <option value="-1" selected>AWAY (OPPONENT)</option>
         </select>
     </div>
 
-    <button onclick="calculate()">RUN SIMULATION</button>
+    <button class="btn-main" onclick="calculateGame()">RUN SIMULATION</button>
 
     <div id="result-area">
-        <div id="status" class="loading">PROCESSING TACTICAL DATA...</div>
+        <div id="status">PROCESSING TACTICAL DATA...</div>
         <div id="outcome" style="display:none;">
             <div id="winner-text">BENET WINS</div>
             <div class="score-board" id="final-score">2 - 1</div>
@@ -109,73 +128,122 @@
     </div>
 </div>
 
+<div id="calcModal" class="modal">
+    <div class="modal-content">
+        <h2>CALCULATE POWER</h2>
+        <input type="hidden" id="currentTeam">
+        
+        <label>WIN PERCENTAGE (0-100)</label>
+        <input type="number" id="calc-win" placeholder="e.g. 65">
+        
+        <label>AVG GOAL DIFFERENTIAL (+/-)</label>
+        <input type="number" id="calc-gd" placeholder="e.g. 1.5">
+        
+        <label>LEAGUE STRENGTH</label>
+        <select id="calc-tier">
+            <option value="0">STANDARD (PUBLIC)</option>
+            <option value="5">ELITE (ESCC/DVC)</option>
+        </select>
+        
+        <label>RECENT FORM</label>
+        <select id="calc-form">
+            <option value="0">NORMAL</option>
+            <option value="-5">POOR (LOST LAST 2)</option>
+            <option value="3">HOT (WON LAST 3)</option>
+        </select>
+
+        <button class="btn-main" onclick="applyCalculation()">APPLY INDEX</button>
+        <button class="btn-main close-btn" onclick="closeCalc()">CANCEL</button>
+    </div>
+</div>
+
 <script>
-function calculate() {
-    // UI RESET
+// CALCULATOR LOGIC
+function openCalc(team) {
+    document.getElementById('calcModal').style.display = 'flex';
+    document.getElementById('currentTeam').value = team;
+    // Reset fields
+    document.getElementById('calc-win').value = '';
+    document.getElementById('calc-gd').value = '';
+}
+
+function closeCalc() {
+    document.getElementById('calcModal').style.display = 'none';
+}
+
+function applyCalculation() {
+    const win = parseFloat(document.getElementById('calc-win').value) || 50;
+    const gd = parseFloat(document.getElementById('calc-gd').value) || 0;
+    const tier = parseFloat(document.getElementById('calc-tier').value);
+    const form = parseFloat(document.getElementById('calc-form').value);
+    
+    // THE FORMULA
+    // Base 75
+    // Win%: +1 for every 10%
+    // GD: Direct add
+    // Tier: +5 for Elite
+    // Form: +/- 
+    let rating = 75 + (win / 10) + gd + tier + form;
+    
+    // Clamp between 50 and 99
+    if (rating > 99) rating = 99;
+    if (rating < 50) rating = 50;
+    
+    const team = document.getElementById('currentTeam').value;
+    document.getElementById('pwr' + team).value = Math.floor(rating);
+    closeCalc();
+}
+
+// GAME SIMULATION LOGIC
+function calculateGame() {
     document.getElementById('result-area').style.display = 'block';
     document.getElementById('status').style.display = 'block';
     document.getElementById('outcome').style.display = 'none';
 
     setTimeout(() => {
-        // 1. GET DATA
         let pwrA = parseInt(document.getElementById('pwrA').value);
         let expA = parseInt(document.getElementById('expA').value);
         let pwrB = parseInt(document.getElementById('pwrB').value);
         let expB = parseInt(document.getElementById('expB').value);
         let venue = parseInt(document.getElementById('venue').value);
 
-        // 2. LOGIC
-        let expBonusA = expA * 5; // Experience is worth 5 pts per level
+        let expBonusA = expA * 5; 
         let expBonusB = expB * 5;
-        let venueBonusA = (venue === 1) ? 6 : 0; // Home field worth 6 pts
+        let venueBonusA = (venue === 1) ? 6 : 0; 
         let venueBonusB = (venue === -1) ? 6 : 0;
 
-        // Total Tactical Value (TTV)
         let ttvA = pwrA + expBonusA + venueBonusA + (Math.random() * 8);
         let ttvB = pwrB + expBonusB + venueBonusB + (Math.random() * 8);
 
         let diff = ttvA - ttvB;
-        let winner = diff > 0 ? "BENET" : "NORTH";
+        let winner = diff > 0 ? "BENET" : "OPPONENT";
         
-        // 3. SCORE GENERATION
         let scoreA, scoreB;
         if (Math.abs(diff) < 6) { 
-            // Close game
             scoreA = diff > 0 ? 2 : 1; 
             scoreB = diff > 0 ? 1 : 2; 
-            // Random draw chance
             if (Math.random() > 0.8) { scoreA = 1; scoreB = 1; winner = "DRAW"; }
         } else {
-            // Clear win
             scoreA = diff > 0 ? 3 : 0;
             scoreB = diff > 0 ? 0 : 3;
         }
 
-        // 4. ANALYSIS GENERATOR
         let narratives = [];
-
-        // Narrative 1: The Deciding Factor
         if (expA > expB && diff > 0) {
-            narratives.push(`> <span class="highlight">COHESION WON:</span> Benet's returning seniority neutralized North's raw talent.`);
+            narratives.push(`> <span class="highlight">COHESION WON:</span> Returning seniority neutralized raw talent.`);
         } else if (venue === -1 && diff < 0) {
-            narratives.push(`> <span class="highlight">HOME ADVANTAGE:</span> North used the home turf and crowd to control momentum.`);
+            narratives.push(`> <span class="highlight">HOME ADVANTAGE:</span> Host crowd and field conditions controlled momentum.`);
         } else if (pwrB > pwrA + 10 && diff < 0) {
-            narratives.push(`> <span class="highlight">TALENT GAP:</span> The gap in raw technical ability (96 vs 84) was too large to bridge.`);
+            narratives.push(`> <span class="highlight">TALENT GAP:</span> Opponent quality (Rating ${pwrB}) was too high.`);
         } else {
-            narratives.push(`> <span class="highlight">MIDFIELD BATTLE:</span> A tight contest decided by a single defensive error.`);
+            narratives.push(`> <span class="highlight">TIGHT CONTEST:</span> Decided by fine margins in midfield.`);
         }
 
-        // Narrative 2: The Key Stat
-        if (diff > 0) {
-            narratives.push(`> <span class="highlight">KEY METRIC:</span> Benet outperformed expected goals (xG) by utilizing counter-attacks.`);
-        } else {
-             narratives.push(`> <span class="highlight">KEY METRIC:</span> North controlled possession, limiting Benet's chances.`);
-        }
+        if (diff > 0) narratives.push(`> <span class="highlight">KEY METRIC:</span> Efficient finishing on limited chances.`);
+        else narratives.push(`> <span class="highlight">KEY METRIC:</span> Loss of possession in defensive third.`);
 
-        // Narrative 3: Coach's Note
-        narratives.push(`> <span class="highlight">NEXT STEP:</span> Review game tape for defensive shape in the final 3rd.`);
+        narratives.push(`> <span class="highlight">NEXT STEP:</span> Analyze game film for transition defense.`);
 
-        // 5. RENDER
         document.getElementById('status').style.display = 'none';
         document.getElementById('outcome').style.display = 'block';
         document.getElementById('winner-text').innerText = winner === "DRAW" ? "MATCH DRAWN" : winner + " WINS";
@@ -185,7 +253,7 @@ function calculate() {
         document.getElementById('analysis-2').innerHTML = narratives[1];
         document.getElementById('analysis-3').innerHTML = narratives[2];
 
-    }, 2500);
+    }, 2000);
 }
 </script>
 
