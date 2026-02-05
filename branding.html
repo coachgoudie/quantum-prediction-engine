@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Soccerates Brand Kit</title>
+    <style>
+        body { background: #222; font-family: 'Courier New', monospace; padding: 50px; text-align: center; }
+        h2 { color: #fff; margin-top: 50px; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; opacity: 0.6; }
+        
+        /* CONTAINER FOR CAPTURE */
+        .asset-container { 
+            background: #000; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: 1px dashed #444; /* Guide lines, crop inside these */
+        }
+
+        /* 1. PROFILE PICTURE (400x400) */
+        #avatar { width: 400px; height: 400px; }
+        
+        /* 2. X HEADER (1500x500) */
+        #header-x { width: 1500px; height: 500px; flex-direction: column; }
+        
+        /* 3. GITHUB HEADER (1280x640) */
+        #header-git { width: 1280px; height: 640px; }
+
+        /* SVG STYLES */
+        svg { fill: none; stroke: #fff; stroke-width: 2.5; }
+        .filled { fill: #fff; stroke: none; }
+        
+        /* TYPOGRAPHY ASSETS */
+        .logo-text { color: #fff; font-size: 4rem; letter-spacing: -3px; font-weight: bold; margin-top: 20px; }
+        .tagline { color: #fff; font-size: 1.5rem; letter-spacing: 5px; margin-top: 10px; opacity: 0.8; text-transform: uppercase; }
+        .big-text { color: #fff; font-size: 5rem; letter-spacing: -2px; font-weight: bold; }
+        .arrow { color: #fff; font-size: 4rem; margin: 20px 0; opacity: 0.5; }
+
+    </style>
+</head>
+<body>
+
+    <h2>1. Profile Picture (Screenshot the Black Box)</h2>
+    <div id="avatar" class="asset-container">
+        <svg width="200" height="200" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" stroke-width="3" />
+            <polygon points="50,25 72,37 72,63 50,75 28,63 28,37" stroke-width="3" />
+            <circle cx="50" cy="50" r="5" class="filled" />
+        </svg>
+    </div>
+
+    <h2>2. X / Twitter Header</h2>
+    <div id="header-x" class="asset-container">
+        <div class="big-text">THE UNEXAMINED GAME</div>
+        <div class="arrow">↓</div>
+        <div class="tagline">IS NOT WORTH PLAYING</div>
+    </div>
+
+    <h2>3. GitHub Repository Image</h2>
+    <div id="header-git" class="asset-container" style="flex-direction: column;">
+        <svg width="150" height="150" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" stroke-width="4" />
+            <polygon points="50,25 72,37 72,63 50,75 28,63 28,37" stroke-width="4" />
+        </svg>
+        <div class="logo-text">SOCCERATES</div>
+        <div class="tagline">ENGINE v2.0</div>
+    </div>
+
+</body>
+</html>
