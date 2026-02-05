@@ -70,38 +70,80 @@
 </div>
 
 <script>
-function runQuantumSimulation() {
-  const teamA = document.getElementById('teamA').value || "TEAM A";
-  const teamB = document.getElementById('teamB').value || "TEAM B";
-  const resultBox = document.getElementById('result');
-  const loading = document.getElementById('loading');
-  const content = document.getElementById('prediction-content');
-  
-  // UI Reset
-  resultBox.classList.remove('hidden');
-  content.classList.add('hidden');
-  loading.classList.remove('hidden');
-  
-  // Fake "Calculation" Logic
-  setTimeout(() => {
-    const momentumA = Math.random(); 
-    const momentumB = Math.random();
-    const entropy = Math.random() > 0.5 ? "HIGH" : "LOW";
-    
-    let winner = momentumA > momentumB ? teamA : teamB;
-    let winScore = Math.floor(Math.random() * 3) + 1; 
-    let loseScore = Math.floor(Math.random() * winScore); 
-    let confidence = Math.floor(65 + (Math.random() * 30)); 
-    
-    document.getElementById('winner').innerText = `${winner} WINS`;
-    document.getElementById('score').innerText = winner === teamA ? `${winScore} - ${loseScore}` : `${loseScore} - ${winScore}`;
-    document.getElementById('confidence').innerText = confidence;
-    document.getElementById('entropy').innerText = entropy;
-    
-    loading.classList.add('hidden');
-    content.classList.remove('hidden');
-  }, 1500);
-}
+  const teams = [
+    { name: "SOCRATES XI", momentum: 0, score: 0 },
+    { name: "PLATO FC", momentum: 0, score: 0 }
+  ];
+
+  // Initialize quantum uncertainty.
+  const QUANTUM_NOISE = 0.15;
+
+  // Function to simulate quantum measurement disturbance.
+  function measureMomentum(base) {
+    const variance = (Math.random() * 2 - 1) * QUANTUM_NOISE;
+    return Math.max(0, base + variance);
+  }
+
+  // The core prediction engine.
+  function predictMatch() {
+    const resultDiv = document.getElementById("prediction");
+    const logDiv = document.getElementById("log");
+
+    // Clear previous state.
+    resultDiv.innerHTML = '<div class="calculating">CALCULATING MOMENTUM...</div>';
+    logDiv.innerHTML = "";
+
+    // Start the tension sequence.
+    let blinkCount = 0;
+    const blinkInterval = setInterval(() => {
+      const calcElement = document.querySelector(".calculating");
+      // Toggle visibility to create the blink effect.
+      calcElement.style.opacity = calcElement.style.opacity === "0.2" ? "1" : "0.2";
+      blinkCount++;
+
+      // After 3 seconds (approx 12 blinks at 250ms interval), stop blinking and run the prediction.
+      if (blinkCount >= 12) {
+        clearInterval(blinkInterval);
+        calcElement.style.opacity = "1";
+
+        // Execute the original prediction algorithm.
+        teams.forEach(team => {
+          team.momentum = measureMomentum(Math.random());
+        });
+
+        const totalMomentum = teams[0].momentum + teams[1].momentum;
+        teams[0].score = Math.round((teams[0].momentum / totalMomentum) * 5);
+        teams[1].score = Math.round((teams[1].momentum / totalMomentum) * 5);
+
+        // Prevent a quantum superposition of 0-0.
+        if (teams[0].score === 0 && teams[1].score === 0) {
+          teams[Math.floor(Math.random() * 2)].score = 1;
+        }
+
+        // Render the vector result.
+        resultDiv.innerHTML = `
+          <div class="result">
+            <div class="team">${teams[0].name} <span class="score">${teams[0].score}</span></div>
+            <div class="vs">—</div>
+            <div class="team">${teams[1].name} <span class="score">${teams[1].score}</span></div>
+          </div>
+        `;
+
+        // Log the quantum state.
+        logDiv.innerHTML = `
+          <div class="log-entry">// Momentum measured:</div>
+          <div class="log-entry">${teams[0].name}: ${teams[0].momentum.toFixed(3)}</div>
+          <div class="log-entry">${teams[1].name}: ${teams[1].momentum.toFixed(3)}</div>
+          <div class="log-entry">// Entropy resolved.</div>
+        `;
+      }
+    }, 250); // 250ms interval yields ~12 intervals in 3 seconds.
+  }
+
+  // Initialize the observer on page load.
+  window.onload = function() {
+    document.getElementById("predictBtn").addEventListener("click", predictMatch);
+  };
 </script>
 
 </body>
