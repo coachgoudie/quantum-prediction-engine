@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Quantum Prediction Engine</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚫️</text></svg>">
+
+    <style>
+        /* DESIGN SYSTEM: VISUALIZE VALUE AESTHETIC */
+        :root { --bg: #000000; --fg: #ffffff; --font: 'Courier New', Courier, monospace; }
+        body { background-color: var(--bg); color: var(--fg); font-family: var(--font); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; text-transform: uppercase; -webkit-font-smoothing: antialiased; }
+        .container { width: 100%; max-width: 400px; padding: 2rem; border: 2px solid var(--fg); box-sizing: border-box; }
+        header { margin-bottom: 3rem; border-bottom: 1px solid var(--fg); padding-bottom: 1rem; }
+        h1 { font-size: 2rem; line-height: 1.1; margin: 0 0 1rem 0; letter-spacing: -2px; }
+        .subtitle { font-size: 0.6rem; opacity: 0.8; letter-spacing: 1px; }
+        .input-group { margin-bottom: 1rem; }
+        label { display: block; font-size: 0.75rem; margin-bottom: 0.5rem; }
+        input { background: transparent; border: 1px solid var(--fg); color: var(--fg); padding: 1rem; width: 100%; box-sizing: border-box; font-family: var(--font); font-size: 1rem; text-transform: uppercase; outline: none; border-radius: 0; -webkit-appearance: none; }
+        .vs { text-align: center; font-size: 0.8rem; margin: 1rem 0; opacity: 0.5; }
+        button { background: var(--fg); color: var(--bg); border: none; width: 100%; padding: 1rem; font-family: var(--font); font-weight: bold; cursor: pointer; margin-top: 1rem; transition: opacity 0.2s; border-radius: 0; -webkit-appearance: none; }
+        button:hover { opacity: 0.9; }
+        .result-box { margin-top: 2rem; border: 1px solid var(--fg); padding: 1.5rem; text-align: center; min-height: 150px; display: flex; flex-direction: column; justify-content: center; }
+        .hidden { display: none; }
+        .score { font-size: 3rem; font-weight: bold; margin: 1rem 0; }
+        .stats { font-size: 0.8rem; border-top: 1px solid var(--fg); padding-top: 1rem; margin-top: 1rem; }
+        .disclaimer { font-size: 0.5rem; margin-top: 2rem; text-align: center; opacity: 0.6; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>QUANTUM<br>PREDICTION<br>ENGINE</h1>
+    <div class="subtitle">THE UNEXAMINED GAME IS NOT WORTH PLAYING</div>
+  </header>
+
+  <main>
+    <div class="input-group">
+      <label>HOME TEAM</label>
+      <input type="text" id="teamA" placeholder="ARGENTINA" value="ARGENTINA">
+    </div>
+
+    <div class="vs">VS</div>
+
+    <div class="input-group">
+      <label>AWAY TEAM</label>
+      <input type="text" id="teamB" placeholder="BRAZIL" value="BRAZIL">
+    </div>
+
+    <button onclick="runQuantumSimulation()">RUN SIMULATION</button>
+
+    <div id="result" class="result-box hidden">
+      <div class="loading-text" id="loading">CALCULATING MOMENTUM...</div>
+      <div id="prediction-content" class="hidden">
+        <h2 id="winner">ARGENTINA WINS</h2>
+        <div class="score" id="score">2 - 1</div>
+        <div class="stats">
+          <p>QUANTUM EDGE: <span id="confidence">72</span>%</p>
+          <p class="sub-stat">ENTROPY: <span id="entropy">LOW</span></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="disclaimer">*85% ACCURACY ESTIMATE. NON-DETERMINISTIC MODEL.</div>
+  </main>
+</div>
+
+<script>
+function runQuantumSimulation() {
+  const teamA = document.getElementById('teamA').value || "TEAM A";
+  const teamB = document.getElementById('teamB').value || "TEAM B";
+  const resultBox = document.getElementById('result');
+  const loading = document.getElementById('loading');
+  const content = document.getElementById('prediction-content');
+  
+  // UI Reset
+  resultBox.classList.remove('hidden');
+  content.classList.add('hidden');
+  loading.classList.remove('hidden');
+  
+  // Fake "Calculation" Logic
+  setTimeout(() => {
+    const momentumA = Math.random(); 
+    const momentumB = Math.random();
+    const entropy = Math.random() > 0.5 ? "HIGH" : "LOW";
+    
+    let winner = momentumA > momentumB ? teamA : teamB;
+    let winScore = Math.floor(Math.random() * 3) + 1; 
+    let loseScore = Math.floor(Math.random() * winScore); 
+    let confidence = Math.floor(65 + (Math.random() * 30)); 
+    
+    document.getElementById('winner').innerText = `${winner} WINS`;
+    document.getElementById('score').innerText = winner === teamA ? `${winScore} - ${loseScore}` : `${loseScore} - ${winScore}`;
+    document.getElementById('confidence').innerText = confidence;
+    document.getElementById('entropy').innerText = entropy;
+    
+    loading.classList.add('hidden');
+    content.classList.remove('hidden');
+  }, 1500);
+}
+</script>
+
+</body>
+</html>
