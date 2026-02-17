@@ -28,7 +28,7 @@
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* INPUT CARDS */
+        /* ENGINE CARDS */
         .card { border: 1px solid var(--accent); padding: 15px; margin-bottom: 15px; background: #0a0a0a; transition: border-color 0.3s; }
         .card-header { font-weight: bold; border-bottom: 1px solid var(--accent); padding-bottom: 5px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
         
@@ -44,13 +44,21 @@
         .btn-calc { background: var(--accent); color: var(--fg); border: none; padding: 0 15px; font-size: 0.7rem; cursor: pointer; height: 42px; font-weight: bold; transition: 0.2s; }
         .btn-calc:hover { background: #555; }
         
-        /* JOURNAL / BLOG STYLES */
-        .blog-card { cursor: pointer; padding: 20px; border: 1px solid var(--accent); margin-bottom: 15px; transition: all 0.2s; }
+        /* JOURNAL VOLUME FILTER */
+        .volume-nav { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
+        .vol-btn { background: #111; border: 1px solid #333; color: #666; padding: 8px 12px; font-size: 0.65rem; cursor: pointer; white-space: nowrap; font-family: var(--font); }
+        .vol-btn.active { border-color: var(--green); color: var(--green); background: #050505; }
+
+        /* JOURNAL CARDS */
+        .blog-card { cursor: pointer; padding: 20px; border: 1px solid var(--accent); margin-bottom: 15px; transition: all 0.2s; display: block; }
         .blog-card:hover { border-color: var(--green); transform: translateX(5px); }
-        .blog-number { font-size: 0.7rem; color: #666; margin-bottom: 5px; font-family: sans-serif; }
+        .blog-card.hidden { display: none; }
+        .blog-number { font-size: 0.7rem; color: #666; margin-bottom: 5px; font-family: sans-serif; display: flex; justify-content: space-between; }
+        .blog-vol-tag { color: var(--green); opacity: 0.6; }
         .blog-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 5px; line-height: 1.2; }
         .blog-subtitle { font-size: 0.8rem; color: #888; line-height: 1.4; }
         
+        /* ARTICLE VIEW */
         .article-view { display: none; }
         .article-header { border-bottom: 1px solid var(--accent); margin-bottom: 20px; padding-bottom: 10px; }
         .article-meta { color: var(--green); font-size: 0.8rem; margin-bottom: 10px; }
@@ -182,31 +190,46 @@
 
     <div id="section-journal" class="section">
         
+        <div class="volume-nav">
+            <button class="vol-btn active" onclick="filterJournal('all', this)">ALL DATA</button>
+            <button class="vol-btn" onclick="filterJournal('1', this)">VOL I: THEORY</button>
+            <button class="vol-btn" onclick="filterJournal('2', this)">VOL II: TACTICS</button>
+            <button class="vol-btn" onclick="filterJournal('3', this)">VOL III: PSYCH</button>
+        </div>
+
         <div id="journal-list">
-            <div class="blog-card" onclick="openArticle('post1')">
-                <div class="blog-number">001</div>
+            
+            <div class="blog-card" data-vol="1" onclick="openArticle('post1')">
+                <div class="blog-number"><span>001</span> <span class="blog-vol-tag">VOL I</span></div>
                 <div class="blog-title">FIRST PRINCIPLES</div>
                 <div class="blog-subtitle">The Geometry of 7v7: Why formations are irrelevant.</div>
             </div>
 
-            <div class="blog-card" onclick="openArticle('post2')">
-                <div class="blog-number">002</div>
+            <div class="blog-card" data-vol="3" onclick="openArticle('post2')">
+                <div class="blog-number"><span>002</span> <span class="blog-vol-tag">VOL III</span></div>
                 <div class="blog-title">OCCAM'S RAZOR</div>
                 <div class="blog-subtitle">The Over-Coached Paradox: Why silence is your best player.</div>
             </div>
 
-            <div class="blog-card" onclick="openArticle('post3')">
-                <div class="blog-number">003</div>
+            <div class="blog-card" data-vol="3" onclick="openArticle('post3')">
+                <div class="blog-number"><span>003</span> <span class="blog-vol-tag">VOL III</span></div>
                 <div class="blog-title">SIGNAL VS. NOISE</div>
                 <div class="blog-subtitle">A Parent’s Guide to the Naperville Sideline.</div>
             </div>
+            
+            <div class="blog-card" data-vol="2" style="opacity: 0.4; pointer-events: none;">
+                <div class="blog-number"><span>COMING SOON</span> <span class="blog-vol-tag">VOL II</span></div>
+                <div class="blog-title">THE MECHANIC</div>
+                <div class="blog-subtitle">Tactical data incoming...</div>
+            </div>
+
         </div>
 
         <div id="post1" class="article-view">
             <button class="back-btn" onclick="closeArticle()">← BACK TO JOURNAL</button>
             <div class="article-header">
                 <h1>FIRST PRINCIPLES</h1>
-                <div class="article-meta">ENTRY 001 /// GEOMETRY</div>
+                <div class="article-meta">VOL I /// THEORY</div>
             </div>
             <div class="article-body">
                 <p>Most youth coaches start the season with a formation. They draw a "2-3-1" or a "3-2-1" on a whiteboard and tell seven-year-olds where to stand. This is the first mistake.</p>
@@ -222,7 +245,7 @@
             <button class="back-btn" onclick="closeArticle()">← BACK TO JOURNAL</button>
             <div class="article-header">
                 <h1>OCCAM'S RAZOR</h1>
-                <div class="article-meta">ENTRY 002 /// COGNITIVE LOAD</div>
+                <div class="article-meta">VOL III /// PSYCHOLOGY</div>
             </div>
             <div class="article-body">
                 <p>Walk past any field at the Naperville Park District on a Saturday, and you’ll hear it. The "Joystick Coach."</p>
@@ -240,7 +263,7 @@
             <button class="back-btn" onclick="closeArticle()">← BACK TO JOURNAL</button>
             <div class="article-header">
                 <h1>SIGNAL VS. NOISE</h1>
-                <div class="article-meta">ENTRY 003 /// PARENTING</div>
+                <div class="article-meta">VOL III /// PSYCHOLOGY</div>
             </div>
             <div class="article-body">
                 <p>In the high-performance culture of the Western Suburbs, we are obsessed with metrics. We want to see the score, the trophy, and the "Elite" badge on the jersey. But in youth development, the Scoreboard is often a liar. It is <strong>Noise</strong>.</p>
@@ -311,13 +334,34 @@ function switchTab(tab) {
     document.getElementById('section-' + tab).classList.add('active');
     document.getElementById('tab-' + tab).classList.add('active');
     
-    // Reset journal view when switching tabs
     if(tab === 'journal') closeArticle();
+}
+
+// VOLUME FILTER LOGIC
+function filterJournal(vol, btn) {
+    // 1. Highlight the button
+    document.querySelectorAll('.vol-btn').forEach(el => el.classList.remove('active'));
+    btn.classList.add('active');
+
+    // 2. Show/Hide Cards
+    const cards = document.querySelectorAll('.blog-card');
+    cards.forEach(card => {
+        if (vol === 'all') {
+            card.classList.remove('hidden');
+        } else {
+            if (card.dataset.vol === vol) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        }
+    });
 }
 
 // BLOG LOGIC
 function openArticle(id) {
     document.getElementById('journal-list').style.display = 'none';
+    document.querySelector('.volume-nav').style.display = 'none'; // Hide filter when reading
     document.querySelectorAll('.article-view').forEach(el => el.style.display = 'none');
     document.getElementById(id).style.display = 'block';
     window.scrollTo(0,0);
@@ -326,6 +370,7 @@ function openArticle(id) {
 function closeArticle() {
     document.querySelectorAll('.article-view').forEach(el => el.style.display = 'none');
     document.getElementById('journal-list').style.display = 'block';
+    document.querySelector('.volume-nav').style.display = 'flex'; // Show filter again
 }
 
 // CALCULATOR LOGIC
