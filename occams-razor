@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Occam's Razor | Soccerates</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>△</text></svg>">
+    <style>
+        body { background-color: #000000; color: #cccccc; font-family: 'Helvetica', sans-serif; padding: 20px; line-height: 1.8; }
+        .container { max-width: 700px; margin: 0 auto; padding-top: 40px; }
+        h1 { color: #ffffff; letter-spacing: -1px; margin-bottom: 5px; }
+        h2 { color: #ffffff; margin-top: 40px; }
+        .meta { color: #00FF41; font-family: monospace; font-size: 0.9em; margin-bottom: 40px; display: block;}
+        .math-box { border: 1px solid #333; padding: 20px; text-align: center; margin: 30px 0; font-family: monospace; color: #ffffff; }
+        a { color: #666; text-decoration: none; }
+        a:hover { color: #ffffff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="blog.html">← Journal</a>
+        
+        <h1>OCCAM'S RAZOR</h1>
+        <span class="meta">ENTRY 002 /// COGNITIVE LOAD</span>
+
+        <p>Walk past any field at the Naperville Park District on a Saturday, and you’ll hear it. The "Joystick Coach."</p>
+        <p><em>"Pass left! Step up! Shoot! No, the other way!"</em></p>
+        <p>These are well-meaning mentors who believe that more information equals better performance. But <strong>Cognitive Load Theory</strong> tells us the exact opposite.</p>
+
+        <div class="math-box">
+            EXECUTION = BANDWIDTH - (COMPLEXITY + NOISE)
+        </div>
+
+        <h2>The Bandwidth Equation</h2>
+        <p>Every time you shout an instruction from the sideline, you are adding <strong>Noise</strong>. You think you are helping. In reality, you are stealing their bandwidth.</p>
+
+        <h2>The Protocol: Silence</h2>
+        <p>Next practice, try an experiment. Play a 10-minute scrimmage with a strict rule: <strong>Zero Talking.</strong> Watch the players stop looking at you for answers and start looking at the field.</p>
+    </div>
+</body>
+</html>
