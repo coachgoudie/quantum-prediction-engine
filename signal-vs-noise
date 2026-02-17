@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal vs Noise | Soccerates</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>△</text></svg>">
+    <style>
+        body { background-color: #000000; color: #cccccc; font-family: 'Helvetica', sans-serif; padding: 20px; line-height: 1.8; }
+        .container { max-width: 700px; margin: 0 auto; padding-top: 40px; }
+        h1 { color: #ffffff; letter-spacing: -1px; margin-bottom: 5px; }
+        h2 { color: #ffffff; margin-top: 40px; }
+        .meta { color: #00FF41; font-family: monospace; font-size: 0.9em; margin-bottom: 40px; display: block;}
+        ul { list-style-type: square; color: #fff; }
+        li { margin-bottom: 10px; }
+        a { color: #666; text-decoration: none; }
+        a:hover { color: #ffffff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="blog.html">← Journal</a>
+        
+        <h1>SIGNAL VS. NOISE</h1>
+        <span class="meta">ENTRY 003 /// PARENTING</span>
+
+        <p>In the high-performance culture of the Western Suburbs, we are obsessed with metrics. We want to see the score, the trophy, and the "Elite" badge on the jersey. But in youth development, the Scoreboard is often a liar. It is <strong>Noise</strong>.</p>
+
+        <h2>The Ergodicity Problem</h2>
+        <p>In a non-ergodic system like youth sports, the "average" success of a team does not predict the success of the individual player.</p>
+        
+        <ul>
+            <li><strong>Team A:</strong> Wins 5-0 because of one early-bloomer (Outcome/Noise).</li>
+            <li><strong>Team B:</strong> Loses 3-0 because they are trying to play correctly but lack strength (Process/Signal).</li>
+        </ul>
+
+        <h2>What to Watch For</h2>
+        <p>At <strong>Soccerates</strong>, we are not interested in winning the U9 weekend. We are interested in building the U18 mind. Stop listening to the Noise. Watch the Signal (Scanning, Bravery, Resilience).</p>
+    </div>
+</body>
+</html>
