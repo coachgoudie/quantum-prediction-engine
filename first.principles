@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Principles | Soccerates</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>△</text></svg>">
+    <style>
+        body { background-color: #000000; color: #cccccc; font-family: 'Helvetica', sans-serif; padding: 20px; line-height: 1.8; }
+        .container { max-width: 700px; margin: 0 auto; padding-top: 40px; }
+        h1 { color: #ffffff; letter-spacing: -1px; margin-bottom: 5px; }
+        h2 { color: #ffffff; margin-top: 40px; }
+        .meta { color: #00FF41; font-family: monospace; font-size: 0.9em; margin-bottom: 40px; display: block;}
+        .math-box { border: 1px solid #333; padding: 20px; text-align: center; margin: 30px 0; font-family: monospace; color: #ffffff; }
+        a { color: #666; text-decoration: none; }
+        a:hover { color: #ffffff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="blog.html">← Journal</a>
+        
+        <h1>FIRST PRINCIPLES</h1>
+        <span class="meta">ENTRY 001 /// GEOMETRY</span>
+
+        <p>Most youth coaches start the season with a formation. They draw a "2-3-1" or a "3-2-1" on a whiteboard and tell seven-year-olds where to stand. This is the first mistake.</p>
+
+        <p>At <strong>Soccerates</strong>, we don't look at the "what" (the formation). We look at the "why" (the physics). If you strip away the jerseys and the grass, 7v7 soccer is simply a problem of <strong>Resource Allocation</strong>.</p>
+
+        <div class="math-box">
+            EFFICIENCY = SPACE (S) / TIME (T)
+        </div>
+
+        <h2>The Diamond is a Tool</h2>
+        <p>We teach the "Diamond" shape in 7v7 not because it looks nice, but because it mathematically stretches the opponent’s time (T). When our center-back has the ball and our two defenders split wide to the touchlines, we increase the Space (S) the opponent must defend.</p>
+
+        <p>Stop shouting "Get back in position!" Start asking: <em>"How can you create more time for your teammate?"</em></p>
+    </div>
+</body>
+</html>
